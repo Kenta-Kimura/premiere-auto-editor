@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+.venv/
+.venv312/
+.pip-cache/
+
+downloads/
+tools/bin/
+
+premiere_auto_editor_output/
+premiere_auto_editor_*/
+*.zip
+
+.env
+.env.*

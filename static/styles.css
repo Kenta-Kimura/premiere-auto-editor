@@ -1,0 +1,439 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --text: #17202a;
+  --muted: #607080;
+  --line: #d9e0e7;
+  --accent: #0f766e;
+  --accent-dark: #115e59;
+  --warn: #9a3412;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+}
+
+.workspace {
+  padding: 32px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: 34px;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+h2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+p,
+li,
+input,
+textarea,
+button {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.status {
+  min-width: 112px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.panel,
+article,
+.logPanel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.panel {
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.fieldGroup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+
+.dropZone.dragging {
+  border-color: var(--accent);
+  background: rgba(15, 118, 110, 0.07);
+}
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 10px;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  background: #fff;
+}
+
+input {
+  height: 42px;
+  padding: 0 12px;
+}
+
+textarea {
+  min-height: 180px;
+  padding: 10px 12px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid rgba(15, 118, 110, 0.24);
+  border-color: var(--accent);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.controls {
+  padding-top: 6px;
+}
+
+.check {
+  display: flex;
+  grid-template-columns: none;
+  flex-direction: row;
+  align-items: center;
+  color: var(--text);
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+}
+
+button {
+  min-width: 132px;
+  height: 42px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--accent-dark);
+}
+
+button.secondary {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+}
+
+button.secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  background: #f8fbfb;
+}
+
+button.danger {
+  color: #991b1b;
+}
+
+button.smallButton {
+  min-width: 92px;
+  height: 34px;
+  font-size: 13px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.previewPanel {
+  margin-top: 20px;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.previewHeader p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.chatgptPanel {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.promptBlock {
+  display: grid;
+  gap: 8px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionHeader h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+button.tab {
+  min-width: 0;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+button.tab.active {
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.tableScroller {
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: #fff;
+}
+
+th,
+td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: #f8fafb;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.emptyPreview {
+  color: var(--muted);
+  margin: 0;
+}
+
+article {
+  padding: 18px;
+}
+
+ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.logPanel {
+  border-radius: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  padding: 28px;
+  overflow: auto;
+}
+
+.result {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+}
+
+.progressBox {
+  margin-bottom: 18px;
+}
+
+.progressMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #eef3f4;
+  overflow: hidden;
+}
+
+.progressBar {
+  width: 0%;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+ol {
+  padding-left: 20px;
+  color: var(--text);
+}
+
+ol li {
+  margin-bottom: 8px;
+}
+
+.warn {
+  color: var(--warn);
+}
+
+@media (max-width: 880px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace {
+    padding: 20px;
+  }
+
+  .topbar,
+  .grid,
+  .fieldGroup,
+  .settingsGrid,
+  .previewHeader {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .logPanel {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Premiere Auto Editor MVP</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>Premiere Auto Editor</h1>
+            <p>動画素材を解析し、Premiereに渡すCSV / SRT / XMLを生成します。</p>
+          </div>
+        </header>
+
+        <form id="analysisForm" class="panel">
+          <div class="fieldGroup dropZone" data-target="input_path">
+            <label>
+              <span>素材ファイル / フォルダ</span>
+              <input name="input_path" placeholder="/Users/kenta/Movies/gopro-trip または /Users/kenta/Movies/GX010001.MP4" required />
+            </label>
+            <div class="buttonRow">
+              <button type="button" class="secondary" data-dialog="input_file">MP4/MOVを選択</button>
+              <button type="button" class="secondary" data-dialog="input_dir">フォルダを選択</button>
+            </div>
+          </div>
+          <div class="fieldGroup dropZone" data-target="output_dir">
+            <label>
+              <span>最終出力フォルダ</span>
+              <input name="output_dir" placeholder="空欄なら素材と同じ場所に作成。解析完了後に出力します。" />
+            </label>
+            <button type="button" class="secondary" data-dialog="output">出力先を選択</button>
+          </div>
+          <div class="fieldGroup dropZone" data-target="terms_path">
+            <label>
+              <span>terms.csv</span>
+              <input name="terms_path" placeholder="/Users/kenta/Documents/terms.csv（任意）" />
+              <small>内蔵の旅行スポット辞書で自動補正します。CSVを指定すると、before列の語をafter列へ追加で置換できます。</small>
+            </label>
+            <button type="button" class="secondary" data-dialog="terms">CSVを選択</button>
+          </div>
+          <div class="settingsGrid">
+            <label>
+              <span>無音しきい値 dB</span>
+              <input name="silence_threshold_db" type="number" min="-60" max="-10" step="1" value="-38" />
+            </label>
+            <label>
+              <span>最小無音秒数</span>
+              <input name="min_silence_duration" type="number" min="0.2" max="5" step="0.1" value="2.0" />
+            </label>
+          </div>
+          <div class="row controls">
+            <label class="check">
+              <input type="checkbox" name="enable_transcription" checked />
+              <span>Whisperがある場合は書き起こす</span>
+            </label>
+            <div class="buttonRow">
+              <button type="submit" id="startButton">解析開始</button>
+              <button type="button" id="stopPartialButton" class="secondary danger" disabled>ここまで確認へ</button>
+              <button type="button" id="abortButton" class="secondary danger" disabled>中止</button>
+            </div>
+          </div>
+        </form>
+
+        <section id="previewPanel" class="previewPanel" hidden>
+          <div class="previewHeader">
+            <div>
+              <h2>CSVプレビュー</h2>
+              <p>必要ならChatGPTで文字起こしを補完してから、最終出力フォルダへ書き出します。</p>
+            </div>
+            <button type="button" id="exportButton">確認して出力</button>
+          </div>
+          <div id="chatgptPanel" class="chatgptPanel" hidden>
+            <div class="promptBlock">
+              <div class="sectionHeader">
+                <h3>ChatGPT補完用プロンプト</h3>
+                <button type="button" class="secondary smallButton" id="copyPromptButton">コピー</button>
+              </div>
+              <textarea id="chatgptPrompt" readonly></textarea>
+            </div>
+            <div class="promptBlock">
+              <div class="sectionHeader">
+                <h3>補完済みCSVを貼り付け</h3>
+                <button type="button" class="secondary smallButton" id="applyCorrectionsButton">補完を反映</button>
+              </div>
+              <textarea id="correctedTranscript" placeholder="ChatGPTが返したCSVをここに貼り付けます。"></textarea>
+            </div>
+          </div>
+          <div class="tabs" id="previewTabs"></div>
+          <div id="previewTable" class="previewTable"></div>
+        </section>
+
+      </section>
+
+      <aside class="logPanel">
+        <h2>進行状況</h2>
+        <div id="result" class="result">まだ実行していません。</div>
+        <div class="progressBox" aria-label="解析進捗">
+          <div class="progressMeta">
+            <span id="progressLabel">待機中</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progressTrack">
+            <div id="progressBar" class="progressBar"></div>
+          </div>
+        </div>
+        <ol id="messages"></ol>
+      </aside>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
