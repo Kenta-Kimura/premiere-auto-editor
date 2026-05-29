@@ -95,7 +95,7 @@ http://127.0.0.1:8765
 このプロジェクトをGitHubで管理する場合:
 
 ```bash
-cd "/Users/kenta/Documents/New project"
+cd "/Users/kenta/Documents/Codex/Premiere Auto Editor"
 git init -b main
 git remote add origin https://github.com/Kenta-Kimura/premiere-auto-editor.git
 git add .gitignore README.md app.py start_server.sh stop_server.sh run_app.command static premiere_auto_editor
